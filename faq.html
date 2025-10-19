@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ — Leges Wealth Management</title>
+  <meta name="description" content="Frequently asked questions about our planning and investment approach." />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#2b2925; --secondary:#1a3f30; --accent:#d3ae62; --neutral:#f7f2e9;
+      --bg:var(--primary); --ink:var(--neutral); --muted:#d9d3c8; --line:var(--secondary);
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35); --maxw:1100px;
+      --hero-logo-url:url('logo.png');
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:'Cormorant Garamond',serif;color:var(--ink);
+      background:radial-gradient(900px 420px at 75% -10%, rgba(211,174,98,.12), transparent 60%), var(--bg);
+      line-height:1.6; letter-spacing:.1px;}
+    a{color:inherit;text-decoration:none}
+    h1,h2,h3{color:var(--accent);margin:0 0 .5rem;line-height:1.15} h1{font-size:clamp(2rem,4vw,3rem)}
+    .eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.78rem}
+    .container{width:min(100% - 2rem,var(--maxw));margin-inline:auto}
+    header{position:sticky;top:0;backdrop-filter:blur(8px);background:linear-gradient(to bottom,rgba(43,41,37,.92),rgba(43,41,37,.70));border-bottom:1px solid var(--line);z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    nav ul{display:flex;gap:1.1rem;list-style:none;padding:0;margin:0}
+    nav a{color:var(--ink);opacity:.85;font-weight:600;padding:.55rem .8rem;border-radius:10px}
+    nav a:hover{background:rgba(26,63,48,.14);opacity:1}
+    nav a.active{background:rgba(26,63,48,.24);opacity:1}
+    .hero{position:relative;overflow:clip}
+    .hero .inner{display:grid;grid-template-columns:1fr;min-height:38vh;gap:1.25rem;padding-block:clamp(2rem,6vw,4rem)}
+    .hero-heading{position:relative;padding:.5rem 0 0;isolation:isolate}
+    .hero-heading>*{position:relative;z-index:1}
+    .hero-heading::before{content:"";position:absolute;right:-10px;top:-24px;width:170px;height:170px;background:var(--hero-logo-url) center/contain no-repeat;opacity:.18;filter:saturate(0) contrast(1.1);pointer-events:none;z-index:0}
+    section{padding-block:clamp(2rem,6vw,4rem)}
+    .muted{color:var(--muted)}
+    .faq{display:grid;gap:1rem}
+    .qa{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02);padding:1rem}
+    .qa h3{margin-bottom:.35rem}
+    footer{border-top:1px solid var(--line);margin-top:2rem;padding-block:1.2rem;color:var(--muted)}
+    [hidden]{display:none!important}
+    .contact-bubble{position:fixed;right:1rem;bottom:1rem;z-index:70;display:grid;gap:.6rem}
+    .bubble-toggle{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-radius:999px;background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;border:1px solid var(--line);font-weight:700;box-shadow:var(--shadow);cursor:pointer}
+    .bubble-toggle .dot{width:8px;height:8px;border-radius:999px;background:var(--secondary);box-shadow:0 0 0 4px rgba(26,63,48,.25)}
+    .bubble-panel{width:min(92vw,420px);max-height:min(70vh,640px);overflow:auto;padding:1rem;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+    .bubble-panel header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
+    .bubble-close{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:.35rem .55rem;cursor:pointer}
+    .bubble-panel input,.bubble-panel textarea{background:#2f2c26;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:.85rem 1rem;font-family:'Cormorant Garamond',serif}
+    .bubble-panel textarea{min-height:120px}
+    @media(max-width:960px){nav ul{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Home"><span>Leges Wealth Management</span></a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="services.html">Services &amp; Strategies</a></li>
+          <li><a href="who-we-serve.html">Who We Serve</a></li>
+          <li><a class="active" href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn secondary" href="login.html">Client Login</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container inner">
+      <div class="hero-heading">
+        <div class="eyebrow">Answers First</div>
+        <h1>Frequently Asked <span style="color:var(--accent);">Questions</span></h1>
+      </div>
+      <p class="muted" style="max-width:70ch">Quick answers to the things clients ask most. If we missed yours, reach out—happy to help.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container faq">
+      <article class="qa">
+        <h3>How are you compensated?</h3>
+        <p class="muted">We use a transparent advisory fee aligned with your portfolio size and scope of planning.</p>
+      </article>
+      <article class="qa">
+        <h3>Is there an account minimum?</h3>
+        <p class="muted">Minimums vary by service model. We’ll recommend the best fit during discovery.</p>
+      </article>
+      <article class="qa">
+        <h3>Do you coordinate with my CPA/attorney?</h3>
+        <p class="muted">Yes. With permission, we actively collaborate to ensure cohesive outcomes.</p>
+      </article>
+      <article class="qa">
+        <h3>What’s the typical engagement process?</h3>
+        <p class="muted">Discovery → Plan Design → Implementation → Ongoing Review. We adjust cadence to your needs.</p>
+      </article>
+      <article class="qa">
+        <h3>Can you manage accounts across multiple custodians?</h3>
+        <p class="muted">Yes, we support multi-custodian setups and aggregate reporting as needed.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Still have questions?</h2>
+        <p class="muted">We’re happy to talk through specifics.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="contact.html">Contact Us</a>
+        <a class="btn secondary" href="services.html">See Services</a>
+      </div>
+      <footer class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+          <small>© <span id="year"></span> Leges Wealth Management. All rights reserved.</small>
+          <div style="display:flex;gap:.9rem;">
+            <a class="muted" href="privacy.html">Privacy Policy</a>
+            <a class="muted" href="disclosures.html">Disclosures</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <div class="contact-bubble" id="contact-bubble">
+    <button class="bubble-toggle" id="bubble-toggle" aria-expanded="false" aria-controls="contact-panel">
+      <span class="dot" aria-hidden="true"></span> Contact Us
+    </button>
+    <div class="bubble-panel" id="contact-panel" hidden>
+      <header><strong>Send a message</strong><button class="bubble-close" id="bubble-close" aria-label="Close contact form">×</button></header>
+      <form id="bubble-form" action="#" method="post">
+        <div><label class="muted" for="bname">Name</label><input id="bname" name="name" placeholder="Jane Doe" required /></div>
+        <div><label class="muted" for="bemail">Email</label><input id="bemail" name="email" type="email" placeholder="jane@example.com" required /></div>
+        <div><label class="muted" for="bmsg">Message</label><textarea id="bmsg" name="message" placeholder="Tell us how we can help"></textarea></div>
+        <div><button class="btn" type="submit">Send Message</button></div>
+      </form>
+      <p class="muted" style="font-size:.95rem;margin-top:.5rem;">This demo form doesn’t submit anywhere yet — I can wire it to Formspree/Netlify/email if you want.</p>
+    </div>
+  </div>
+
+  <script>
+    (function(){const yr=document.getElementById('year'); if(yr) yr.textContent=new Date().getFullYear();})();
+    (function(){
+      const t=document.getElementById('bubble-toggle'),p=document.getElementById('contact-panel'),
+            c=document.getElementById('bubble-close'),b=document.getElementById('contact-bubble'),
+            f=document.getElementById('bubble-form');
+      if(!t||!p||!c||!b) return;
+      function open(){p.hidden=false;t.setAttribute('aria-expanded','true');setTimeout(()=>document.addEventListener('click',out),0)}
+      function close(){p.hidden=true;t.setAttribute('aria-expanded','false');document.removeEventListener('click',out)}
+      function out(e){if(!b.contains(e.target)) close()}
+      t.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();p.hidden?open():close()});
+      c.addEventListener('click',e=>{e.preventDefault();close()});
+      window.addEventListener('keydown',e=>{if(e.key==='Escape') close()});
+      if(f){f.addEventListener('submit',e=>{e.preventDefault();alert('Thanks! This demo form isn’t wired up yet.');close()});}
+    })();
+  </script>
+</body>
+</html>

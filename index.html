@@ -1,4 +1,449 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leges Wealth Management</title>
+  <meta name="description" content="A clean, professional wealth-management style landing page inspired by Montoney Capital." />
+
+  <!-- Font: Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+ <style>
+  :root{
+    /* Brand palette */
+    --primary:#2b2925;
+    --secondary:#1a3f30;
+    --accent:#d3ae62;
+    --neutral:#f7f2e9;
+
+    /* Derived tokens */
+    --bg:var(--primary);
+    --ink:var(--neutral);
+    --muted:#d9d3c8;
+    --line:var(--secondary);
+    --radius:18px;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --maxw:1100px;
+
+    /* Hero logo watermark */
+    --hero-logo-url: url('logo.png');  /* ← change this to your actual logo path */
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body{
+    margin:0;
+    font-family:'Cormorant Garamond', serif;
+    color:var(--ink);
+    background:
+      radial-gradient(900px 420px at 75% -10%, rgba(211,174,98,.12), transparent 60%),
+      var(--bg);
+    line-height:1.6;
+    letter-spacing:.1px;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  h1,h2,h3,h4,h5,h6{ color:var(--accent); margin:0 0 .5rem; line-height:1.15; }
+  h1{ font-size:clamp(2rem, 4vw, 3rem); }
+  .eyebrow{ color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; }
+
+  .container{ width: min(100% - 2rem, var(--maxw)); margin-inline:auto; }
+  .grid{ display:grid; gap:1.25rem; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    padding:.9rem 1.15rem; border-radius:999px; border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--accent), #c59d54);
+    color:#2b2925; font-weight:700;
+    box-shadow: var(--shadow);
+    transition:.2s transform ease, .2s box-shadow ease, .2s opacity ease;
+  }
+  .btn.secondary{
+    background:transparent;
+    color:var(--ink);
+  }
+  .btn:hover{ transform: translateY(-2px); box-shadow:0 14px 28px rgba(0,0,0,.35); }
+
+  /* Header */
+  header{
+    position:sticky; top:0; backdrop-filter: blur(8px);
+    background: linear-gradient(to bottom, rgba(43,41,37,.92), rgba(43,41,37,.70));
+    border-bottom:1px solid var(--line);
+    z-index:50;
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:.8rem 0; }
+  .brand{ display:flex; align-items:center; gap:.75rem; font-weight:700; letter-spacing:.4px; color:var(--ink); }
+  .brand img{
+    width:28px; height:28px; border-radius:8px; border:1px solid var(--line);
+    object-fit:cover;
+  }
+  nav ul{ display:flex; gap:1.1rem; list-style:none; padding:0; margin:0; }
+  nav a{ color:var(--ink); opacity:.85; font-weight:600; padding:.55rem .8rem; border-radius:10px; }
+  nav a:hover{ background:rgba(26,63,48,.14); opacity:1; }
+
+  /* Hero */
+  .hero{ position:relative; overflow:clip; }
+  .hero .inner{
+    display:grid; grid-template-columns: 1.1fr .9fr; align-items:center;
+    min-height:68vh; gap:2rem; padding-block:clamp(2rem, 6vw, 5rem);
+  }
+
+  /* Watermark logo behind heading */
+  .hero-heading{
+    position:relative;
+    padding:.5rem 0 0;
+  }
+  .hero-heading::before{
+    content:"";
+    position:absolute;
+    right:-10px; top:-24px;
+    width:160px; height:160px;
+    background: var(--hero-logo-url) center/contain no-repeat;
+    opacity:.10;
+    filter: saturate(0) contrast(1.2);
+    pointer-events:none;
+  }
+  @media (max-width: 640px){
+    .hero-heading::before{
+      width:120px; height:120px; right:-6px; top:-16px;
+    }
+  }
+
+  .lead{ color:var(--muted); font-size:1.15rem; max-width:48ch; }
+  .cta-row{ margin-top:1.25rem; display:flex; gap:.8rem; flex-wrap:wrap; }
+
+  .hero-card{
+    background:linear-gradient(180deg, rgba(211,174,98,.10), rgba(26,63,48,.10));
+    border:1px solid var(--line);
+    border-radius:var(--radius); padding:1.1rem; display:grid; gap:.9rem; box-shadow:var(--shadow);
+  }
+  .hero-illus{
+    aspect-ratio: 4/3; border-radius:14px;
+    background:
+      radial-gradient(500px 400px at 80% 10%, rgba(211,174,98,.22), transparent),
+      linear-gradient(135deg, #342f28 0%, #26231e 100%);
+    display:grid; place-items:center; border:1px solid var(--line);
+  }
+  .hero-illus .bars{ width:72%; height:58%; display:flex; align-items:flex-end; gap:6%; }
+  .bar{
+    flex:1; border-radius:10px 10px 4px 4px;
+    background:linear-gradient(180deg, var(--secondary), #0c2a1f);
+    box-shadow: inset 0 -12px 24px rgba(0,0,0,.25);
+    animation:rise 2.4s ease-in-out infinite alternate;
+  }
+  .bar:nth-child(2){ animation-delay:.2s; }
+  .bar:nth-child(3){ animation-delay:.4s; }
+  .bar:nth-child(4){ animation-delay:.6s; }
+  .bar:nth-child(5){ animation-delay:.8s; }
+  @keyframes rise{ from{ height:15%; } to{ height:85%; } }
+
+  /* Sections */
+  section{ padding-block: clamp(2rem, 6vw, 4rem); }
+  .section-head{ display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
+  .muted{ color:var(--muted); }
+
+  .card-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+    border:1px solid var(--line); border-radius:var(--radius);
+    padding:1.15rem; box-shadow: var(--shadow);
+  }
+  .card h3{ font-size:1.15rem; }
+
+  .pill{
+    display:inline-block; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
+    border:1px solid var(--line); padding:.28rem .6rem; border-radius:999px; background:rgba(26,63,48,.18);
+  }
+
+  /* About */
+  .two-col{ grid-template-columns: 1.15fr .85fr; align-items:center; }
+  .about-img{
+    aspect-ratio: 3/2; border-radius:var(--radius);
+    background:linear-gradient(135deg, #353129, #1f1d19);
+    border:1px solid var(--line);
+  }
+
+  /* Resources */
+  .resource-list{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.9rem; }
+  .resource{ padding:1rem; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.02); }
+  .resource a{ color:var(--accent); font-weight:700; }
+
+  /* Contact/Footer */
+  .contact{ background:linear-gradient(180deg, rgba(211,174,98,.08), transparent 70%); border-top:1px solid var(--line); }
+  footer{ border-top:1px solid var(--line); margin-top:2rem; padding-block:1.2rem; color:var(--muted); font-size:1rem; }
+
+  /* Floating Contact Bubble */
+  [hidden]{display:none !important;}
+  .contact-bubble{ position:fixed; right:1rem; bottom:1rem; z-index:70; display:grid; gap:.6rem; }
+  .bubble-toggle{
+    display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1rem; border-radius:999px;
+    background:linear-gradient(180deg, var(--accent), #c59d54); color:#2b2925; border:1px solid var(--line);
+    font-weight:700; box-shadow:var(--shadow); cursor:pointer;
+  }
+  .bubble-toggle .dot{ width:8px; height:8px; border-radius:999px; background:var(--secondary); box-shadow:0 0 0 4px rgba(26,63,48,.25);}
+  .bubble-panel{
+    width:min(92vw, 420px); max-height:min(70vh, 640px); overflow:auto; padding:1rem; border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+    border:1px solid var(--line); box-shadow:var(--shadow);
+    backdrop-filter: blur(6px);
+  }
+  .bubble-panel header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.5rem; }
+  .bubble-close{ background:transparent; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:.35rem .55rem; cursor:pointer; }
+  .bubble-panel form{ display:grid; gap:.8rem; grid-template-columns:1fr; }
+  .bubble-panel input, .bubble-panel textarea{
+    background:#2f2c26; border:1px solid var(--line); color:var(--ink); border-radius:12px; padding:.85rem 1rem;
+    font-family:'Cormorant Garamond', serif;
+  }
+  .bubble-panel textarea{ min-height:120px; }
+
+  /* Responsive */
+  @media (max-width: 960px){
+    .hero .inner{ grid-template-columns:1fr; }
+    .card-grid, .resource-list{ grid-template-columns:1fr; }
+    .two-col{ grid-template-columns:1fr; }
+    nav ul{ display:none; }
+  }
+</style>
+
+</head>
 <body>
-    Test
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Home"><span>Leges Wealth Management</span></a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="services.html">Services &amp; Strategies</a></li>
+          <li><a href="who-we-serve.html">Who We Serve</a></li>
+          <li><a class="active" href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn secondary" href="login.html">Client Login</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="container inner">
+      <div>
+        <div class="eyebrow">Leges Wealth Management</div>
+        <h1>Confidence Compounds <span style="color:var(--accent);"></span></h1>
+        <p class="lead">A professional, client-first approach to planning, investing, and risk management—delivered with clarity and transparency.</p>
+        <div class="cta-row">
+          <a class="btn" href="#why">Learn More</a>
+          <a class="btn secondary" href="#contact">Start Your Journey</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-illus" role="img" aria-label="Stylized performance bars">
+          <div class="bars" aria-hidden="true">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="muted">Actively managed portfolios with aligned incentives and rigorous risk controls.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section id="why">
+    <div class="container">
+      <div class="section-head">
+        <h2>Why Choose Us</h2>
+        <p class="muted">Personalized planning • Disciplined execution • Transparent fees</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <span class="pill">Strategy</span>
+          <h3>Customized Financial Plans</h3>
+          <p class="muted">Tailored roadmaps that align with your goals across retirement, tax, and estate considerations.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Expertise</span>
+          <h3>Experienced Investment Approach</h3>
+          <p class="muted">Institutional-grade asset selection with prudent diversification and ongoing monitoring.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Alignment</span>
+          <h3>Actively Managed Portfolios</h3>
+          <p class="muted">We focus on outcomes—our success is tied to yours for a true partnership mindset.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container grid two-col">
+      <div>
+        <h2>About Leges Wealth Management</h2>
+        <p class="muted">We help clients move from financial uncertainty to confident decision-making. Our comprehensive process combines planning, portfolio management, and clear communication.</p>
+        <ul class="muted" style="margin-top:.6rem; line-height:1.9;">
+          <li>Fiduciary standard and client-first advice</li>
+          <li>Tax-aware, risk-managed portfolios</li>
+          <li>Ongoing education and transparent reporting</li>
+        </ul>
+        <div class="cta-row"><a class="btn" href="#contact">Book a Call</a></div>
+      </div>
+      <div class="about-img" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section id="leadership">
+    <div class="container">
+      <div class="section-head">
+        <h2>Leadership</h2>
+        <p class="muted">Seasoned professionals committed to your long-term success.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>First Last, CFA</h3>
+          <p class="muted">Managing Partner &amp; CIO — 15+ years designing strategies across equities, fixed income, and alternatives.</p>
+        </article>
+        <article class="card">
+          <h3>First Last</h3>
+          <p class="muted">Head of Planning — Focused on retirement income, tax minimization, and estate coordination.</p>
+        </article>
+        <article class="card">
+          <h3>First Last</h3>
+          <p class="muted">Client Service Lead — Ensures a seamless onboarding and ongoing client experience.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section id="resources">
+    <div class="container">
+      <div class="section-head">
+        <h2>Resources</h2>
+        <p class="muted">Helpful links and educational content.</p>
+      </div>
+      <div class="resource-list">
+        <div class="resource"><a href="#">Client Login</a><p class="muted">Secure access to your accounts.</p></div>
+        <div class="resource"><a href="#">Account Types</a><p class="muted">Learn the differences and choose what fits your plan.</p></div>
+        <div class="resource"><a href="#">Funding</a><p class="muted">How to fund or transfer your account.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Contact Us</h2>
+        <p class="muted">Tip: use the floating bubble in the bottom-right to send a quick message.</p>
+      </div>
+
+      <footer class="container">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+          <small>© <span id="year"></span> Montoney Capital. All rights reserved.</small>
+          <div style="display:flex; gap:.9rem;">
+            <a class="muted" href="#">FAQ</a>
+            <a class="muted" href="#">Privacy Policy</a>
+            <a class="muted" href="#">Disclosures</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Floating Contact Bubble -->
+  <div class="contact-bubble" id="contact-bubble">
+    <button class="bubble-toggle" id="bubble-toggle" aria-expanded="false" aria-controls="contact-panel">
+      <span class="dot" aria-hidden="true"></span>
+      Contact Us
+    </button>
+    <div class="bubble-panel" id="contact-panel" hidden>
+      <header>
+        <strong>Send a message</strong>
+        <button class="bubble-close" id="bubble-close" aria-label="Close contact form">×</button>
+      </header>
+      <form id="bubble-form" action="#" method="post">
+        <div>
+          <label class="muted" for="bname">Name</label>
+          <input id="bname" name="name" placeholder="Jane Doe" required />
+        </div>
+        <div>
+          <label class="muted" for="bemail">Email</label>
+          <input id="bemail" name="email" type="email" placeholder="jane@example.com" required />
+        </div>
+        <div>
+          <label class="muted" for="bmsg">Message</label>
+          <textarea id="bmsg" name="message" placeholder="Tell us how we can help"></textarea>
+        </div>
+        <div>
+          <button class="btn" type="submit">Send Message</button>
+        </div>
+      </form>
+      <p class="muted" style="font-size:.95rem; margin-top:.5rem;">
+        This demo form doesn’t submit anywhere yet — I can wire it to Formspree/Netlify/email if you want.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Keep footer year current
+    (function(){
+      const yr = document.getElementById('year');
+      if (yr) yr.textContent = new Date().getFullYear();
+    })();
+
+    // Floating contact bubble behavior
+    (function(){
+      const toggle = document.getElementById('bubble-toggle');
+      const panel  = document.getElementById('contact-panel');
+      const close  = document.getElementById('bubble-close');
+      const bubble = document.getElementById('contact-bubble');
+      const form   = document.getElementById('bubble-form');
+
+      if(!toggle || !panel || !close || !bubble) return;
+
+      function openPanel(){
+        panel.hidden = false;
+        toggle.setAttribute('aria-expanded','true');
+        setTimeout(() => document.addEventListener('click', outsideClick), 0);
+      }
+      function closePanel(){
+        panel.hidden = true;
+        toggle.setAttribute('aria-expanded','false');
+        document.removeEventListener('click', outsideClick);
+      }
+      function outsideClick(e){
+        if(!bubble.contains(e.target)) closePanel();
+      }
+
+      toggle.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        panel.hidden ? openPanel() : closePanel();
+      });
+      close.addEventListener('click', (e)=>{ e.preventDefault(); closePanel(); });
+
+      // Close on Escape
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePanel(); });
+
+      // Demo submit handler
+      if(form){
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          alert('Thanks! This demo form isn’t wired up yet.');
+          closePanel();
+        });
+      }
+    })();
+  </script>
 </body>
+</html>

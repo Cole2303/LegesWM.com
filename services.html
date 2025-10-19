@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services & Strategies — Leges Wealth Management</title>
+  <meta name="description" content="Our financial planning services and investment strategies at Leges Wealth Management." />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#2b2925; --secondary:#1a3f30; --accent:#d3ae62; --neutral:#f7f2e9;
+      --bg:var(--primary); --ink:var(--neutral); --muted:#d9d3c8; --line:var(--secondary);
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35); --maxw:1100px;
+      --hero-logo-url:url('logo.png'); /* update to your path */
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:'Cormorant Garamond',serif;color:var(--ink);
+      background:radial-gradient(900px 420px at 75% -10%, rgba(211,174,98,.12), transparent 60%), var(--bg);
+      line-height:1.6; letter-spacing:.1px;}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    h1,h2,h3,h4,h5,h6{color:var(--accent);margin:0 0 .5rem;line-height:1.15} h1{font-size:clamp(2rem,4vw,3rem)}
+    .eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.78rem}
+    .container{width:min(100% - 2rem,var(--maxw));margin-inline:auto} .grid{display:grid;gap:1.25rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.15rem;border-radius:999px;border:1px solid var(--line);background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;font-weight:700;box-shadow:var(--shadow);transition:.2s transform,.2s box-shadow,.2s opacity}
+    .btn.secondary{background:transparent;color:var(--ink)} .btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.35)}
+    header{position:sticky;top:0;backdrop-filter:blur(8px);background:linear-gradient(to bottom,rgba(43,41,37,.92),rgba(43,41,37,.70));border-bottom:1px solid var(--line);z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;letter-spacing:.4px;color:var(--ink)}
+    nav ul{display:flex;gap:1.1rem;list-style:none;padding:0;margin:0}
+    nav a{color:var(--ink);opacity:.85;font-weight:600;padding:.55rem .8rem;border-radius:10px}
+    nav a:hover{background:rgba(26,63,48,.14);opacity:1}
+    nav a.active{background:rgba(26,63,48,.24);opacity:1}
+    .hero{position:relative;overflow:clip}
+    .hero .inner{display:grid;grid-template-columns:1fr;align-items:center;min-height:40vh;gap:1.25rem;padding-block:clamp(2rem,6vw,4rem)}
+    .hero-heading{position:relative;padding:.5rem 0 0;isolation:isolate}
+    .hero-heading>*{position:relative;z-index:1}
+    .hero-heading::before{content:"";position:absolute;right:-10px;top:-24px;width:180px;height:180px;background:var(--hero-logo-url) center/contain no-repeat;opacity:.18;filter:saturate(0) contrast(1.1);pointer-events:none;z-index:0}
+    @media (max-width:640px){.hero-heading::before{width:130px;height:130px;right:-6px;top:-16px}}
+    .lead{color:var(--muted);font-size:1.15rem;max-width:70ch}
+    section{padding-block:clamp(2rem,6vw,4rem)} .section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+    .muted{color:var(--muted)}
+    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid var(--line);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow)}
+    .card h3{font-size:1.15rem}
+    .pill{display:inline-block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);padding:.28rem .6rem;border-radius:999px;background:rgba(26,63,48,.18)}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .plan{border:1px solid var(--line);border-radius:var(--radius);padding:1.15rem;background:rgba(255,255,255,.02);display:grid;gap:.6rem}
+    .plan .meta{color:var(--muted);font-size:.98rem} .plan ul{margin:.25rem 0 0;padding-left:1.1rem;color:var(--muted)}
+    .contact{background:linear-gradient(180deg,rgba(211,174,98,.08),transparent 70%);border-top:1px solid var(--line)}
+    footer{border-top:1px solid var(--line);margin-top:2rem;padding-block:1.2rem;color:var(--muted);font-size:1rem}
+    [hidden]{display:none!important}
+    .contact-bubble{position:fixed;right:1rem;bottom:1rem;z-index:70;display:grid;gap:.6rem}
+    .bubble-toggle{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-radius:999px;background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;border:1px solid var(--line);font-weight:700;box-shadow:var(--shadow);cursor:pointer}
+    .bubble-toggle .dot{width:8px;height:8px;border-radius:999px;background:var(--secondary);box-shadow:0 0 0 4px rgba(26,63,48,.25)}
+    .bubble-panel{width:min(92vw,420px);max-height:min(70vh,640px);overflow:auto;padding:1rem;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+    .bubble-panel header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
+    .bubble-close{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:.35rem .55rem;cursor:pointer}
+    .bubble-panel form{display:grid;gap:.8rem}
+    .bubble-panel input,.bubble-panel textarea{background:#2f2c26;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:.85rem 1rem;font-family:'Cormorant Garamond',serif}
+    .bubble-panel textarea{min-height:120px}
+    @media(max-width:960px){.card-grid,.three-col{grid-template-columns:1fr} nav ul{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Home"><span>Leges Wealth Management</span></a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="services.html">Services &amp; Strategies</a></li>
+          <li><a href="who-we-serve.html">Who We Serve</a></li>
+          <li><a class="active" href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn secondary" href="login.html">Client Login</a>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="hero">
+    <div class="container inner">
+      <div class="hero-heading">
+        <div class="eyebrow">What We Do</div>
+        <h1>Services &amp; <span style="color:var(--accent);">Strategies</span></h1>
+      </div>
+      <p class="lead">From comprehensive planning to disciplined portfolio construction, we align every recommendation with your goals, time horizon, and tolerance for risk.</p>
+      <div class="cta-row">
+        <a class="btn" href="#services">Explore Services</a>
+        <a class="btn secondary" href="#strategies">See Our Approach</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Only -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>Core Services</h2>
+        <p class="muted">Personalized planning • Transparent process • Ongoing guidance</p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card"><span class="pill">Planning</span><h3>Comprehensive Financial Planning</h3><p class="muted">Cash flow, retirement readiness, tax coordination, and estate considerations—assembled into a cohesive, living plan.</p></article>
+        <article class="card"><span class="pill">Advisory</span><h3>Portfolio Management</h3><p class="muted">Institutional discipline with ongoing monitoring, rebalancing, and risk controls tailored to your objectives.</p></article>
+        <article class="card"><span class="pill">Insight</span><h3>Tax-Aware Solutions</h3><p class="muted">Asset location, tax-loss harvesting, and coordination with your tax professional to enhance after-tax outcomes.</p></article>
+        <article class="card"><span class="pill">Protection</span><h3>Risk Management</h3><p class="muted">Identify and mitigate exposures across insurance, liquidity, concentration, and longevity risks.</p></article>
+        <article class="card"><span class="pill">Transitions</span><h3>Retirement Income Design</h3><p class="muted">Sustainable withdrawal strategies, Social Security timing, and distribution sequencing for durability.</p></article>
+        <article class="card"><span class="pill">Legacy</span><h3>Estate &amp; Gifting Coordination</h3><p class="muted">Align beneficiaries, titling, and charitable intent with a plan that reflects your values.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategies Only -->
+  <section id="strategies">
+    <div class="container">
+      <div class="section-head">
+        <h2>Investment Strategies</h2>
+        <p class="muted">Disciplined, risk-managed allocations built for your objectives.</p>
+      </div>
+
+      <div class="three-col">
+        <div class="plan">
+          <h3>Conservative</h3>
+          <div class="meta">Capital preservation • Income focus</div>
+          <ul>
+            <li>Core investment-grade bonds and cash equivalents</li>
+            <li>Limited equity exposure for inflation hedging</li>
+            <li>Rebalance and risk guardrails</li>
+          </ul>
+          <div class="cta-row"><a class="btn secondary" href="contact.html">Discuss Fit</a></div>
+        </div>
+
+        <div class="plan">
+          <h3>Balanced</h3>
+          <div class="meta">Growth with risk control</div>
+          <ul>
+            <li>Diversified equity across factors, size, and regions</li>
+            <li>Core bonds plus strategic diversifiers</li>
+            <li>Tax-aware rebalancing</li>
+          </ul>
+          <div class="cta-row"><a class="btn secondary" href="contact.html">Discuss Fit</a></div>
+        </div>
+
+        <div class="plan">
+          <h3>Growth</h3>
+          <div class="meta">Long-term appreciation</div>
+          <ul>
+            <li>Higher equity allocation with factor diversification</li>
+            <li>Select alternatives where suitable</li>
+            <li>Volatility and drawdown disciplines</li>
+          </ul>
+          <div class="cta-row"><a class="btn secondary" href="contact.html">Discuss Fit</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Footer -->
+  <section class="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Next Step</h2>
+        <p class="muted">Ready to explore a plan tailored to you?</p>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="contact.html">Schedule an Intro Call</a>
+        <a class="btn secondary" href="about.html">Learn More About Us</a>
+      </div>
+
+      <footer class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+          <small>© <span id="year"></span> Leges Wealth Management. All rights reserved.</small>
+          <div style="display:flex;gap:.9rem;">
+            <a class="muted" href="faq.html">FAQ</a>
+            <a class="muted" href="privacy.html">Privacy Policy</a>
+            <a class="muted" href="disclosures.html">Disclosures</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Floating Contact Bubble -->
+  <div class="contact-bubble" id="contact-bubble">
+    <button class="bubble-toggle" id="bubble-toggle" aria-expanded="false" aria-controls="contact-panel">
+      <span class="dot" aria-hidden="true"></span>
+      Contact Us
+    </button>
+    <div class="bubble-panel" id="contact-panel" hidden>
+      <header>
+        <strong>Send a message</strong>
+        <button class="bubble-close" id="bubble-close" aria-label="Close contact form">×</button>
+      </header>
+      <form id="bubble-form" action="#" method="post">
+        <div><label class="muted" for="bname">Name</label><input id="bname" name="name" placeholder="Jane Doe" required /></div>
+        <div><label class="muted" for="bemail">Email</label><input id="bemail" name="email" type="email" placeholder="jane@example.com" required /></div>
+        <div><label class="muted" for="bmsg">Message</label><textarea id="bmsg" name="message" placeholder="Tell us how we can help"></textarea></div>
+        <div><button class="btn" type="submit">Send Message</button></div>
+      </form>
+      <p class="muted" style="font-size:.95rem; margin-top:.5rem;">
+        This demo form doesn’t submit anywhere yet — I can wire it to Formspree/Netlify/email if you want.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function(){ const yr=document.getElementById('year'); if(yr) yr.textContent=new Date().getFullYear(); })();
+    (function(){
+      const toggle=document.getElementById('bubble-toggle'), panel=document.getElementById('contact-panel'),
+            close=document.getElementById('bubble-close'), bubble=document.getElementById('contact-bubble'),
+            form=document.getElementById('bubble-form');
+      if(!toggle||!panel||!close||!bubble) return;
+      function openPanel(){ panel.hidden=false; toggle.setAttribute('aria-expanded','true'); setTimeout(()=>document.addEventListener('click',outside),0); }
+      function closePanel(){ panel.hidden=true; toggle.setAttribute('aria-expanded','false'); document.removeEventListener('click',outside); }
+      function outside(e){ if(!bubble.contains(e.target)) closePanel(); }
+      toggle.addEventListener('click',e=>{e.preventDefault();e.stopPropagation(); panel.hidden?openPanel():closePanel();});
+      close.addEventListener('click',e=>{e.preventDefault();closePanel();});
+      window.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+      if(form){ form.addEventListener('submit',e=>{ e.preventDefault(); alert('Thanks! This demo form isn’t wired up yet.'); closePanel(); }); }
+    })();
+  </script>
+</body>
+</html>

@@ -4,32 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leges Wealth Management</title>
-  <meta name="description" content="A clean, professional wealth-management style landing page inspired by Montoney Capital." />
+  <meta name="description" content="A professional, client-first approach to planning, investing, and risk management." />
 
-  <!-- Font: Cormorant Garamond -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
  <style>
   :root{
-    /* Brand palette */
     --primary:#2b2925;
     --secondary:#1a3f30;
     --accent:#d3ae62;
     --neutral:#f7f2e9;
-
-    /* Derived tokens */
     --bg:var(--primary);
     --ink:var(--neutral);
     --muted:#d9d3c8;
     --line:var(--secondary);
     --radius:18px;
-    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --shadow:0 14px 40px rgba(0,0,0,.45);
     --maxw:1100px;
-
-    /* Hero logo watermark */
-    --hero-logo-url: url('logo.png');  /* ← change this to your actual logo path */
+    --hero-logo-url: url('logo.png');
   }
 
   * { box-sizing: border-box; }
@@ -44,6 +38,7 @@
       var(--bg);
     line-height:1.6;
     letter-spacing:.1px;
+    overflow-x: hidden;
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -56,19 +51,108 @@
   .container{ width: min(100% - 2rem, var(--maxw)); margin-inline:auto; }
   .grid{ display:grid; gap:1.25rem; }
 
+  /* Golden cursor tracer */
+  .cursor-tracer {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(211,174,98,0.6) 0%, rgba(211,174,98,0) 70%);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+  }
+  .cursor-trail {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(211,174,98,0.3) 0%, rgba(211,174,98,0) 70%);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Rotating Globe */
+  .globe-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    z-index: 0;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .globe {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateGlobe 30s linear infinite;
+  }
+  .globe::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    box-shadow: 
+      inset 0 0 60px rgba(211,174,98,0.3),
+      0 0 40px rgba(211,174,98,0.2);
+  }
+  .globe-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    transform-origin: center center;
+  }
+  .globe-line.lat1 { transform: translate(-50%, -50%) rotateX(0deg) scale(1); }
+  .globe-line.lat2 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.866); }
+  .globe-line.lat3 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.707); }
+  .globe-line.lat4 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.5); }
+  .globe-line.lat5 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.259); }
+  .globe-line.long1 { transform: translate(-50%, -50%) rotateY(0deg); }
+  .globe-line.long2 { transform: translate(-50%, -50%) rotateY(30deg); }
+  .globe-line.long3 { transform: translate(-50%, -50%) rotateY(60deg); }
+  .globe-line.long4 { transform: translate(-50%, -50%) rotateY(90deg); }
+  .globe-line.long5 { transform: translate(-50%, -50%) rotateY(120deg); }
+  .globe-line.long6 { transform: translate(-50%, -50%) rotateY(150deg); }
+  @keyframes rotateGlobe {
+    from { transform: rotateY(0deg) rotateX(-15deg); }
+    to { transform: rotateY(360deg) rotateX(-15deg); }
+  }
+
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
     padding:.9rem 1.15rem; border-radius:999px; border:1px solid var(--line);
-    background:linear-gradient(180deg, var(--accent), #c59d54);
-    color:#2b2925; font-weight:700;
+    background:transparent;
+    color:var(--ink); font-weight:700;
     box-shadow: var(--shadow);
-    transition:.2s transform ease, .2s box-shadow ease, .2s opacity ease;
+    transition: all 0.3s ease;
   }
   .btn.secondary{
-    background:transparent;
-    color:var(--ink);
+    background:linear-gradient(180deg, var(--accent), #c59d54);
+    color:#2b2925;
   }
-  .btn:hover{ transform: translateY(-2px); box-shadow:0 14px 28px rgba(0,0,0,.35); }
+  .btn:hover{ 
+    transform: translateY(-2px); 
+    box-shadow:0 18px 36px rgba(0,0,0,.45);
+    background: linear-gradient(180deg, var(--accent), #c59d54);
+    color: #2b2925;
+    border-color: var(--accent);
+  }
+  .btn.secondary:hover {
+    background: linear-gradient(180deg, #e5c478, var(--accent));
+    box-shadow: 0 0 20px rgba(211,174,98,0.4), 0 18px 36px rgba(0,0,0,.45);
+  }
 
   /* Header */
   header{
@@ -84,17 +168,16 @@
     object-fit:cover;
   }
   nav ul{ display:flex; gap:1.1rem; list-style:none; padding:0; margin:0; }
-  nav a{ color:var(--ink); opacity:.85; font-weight:600; padding:.55rem .8rem; border-radius:10px; }
-  nav a:hover{ background:rgba(26,63,48,.14); opacity:1; }
+  nav a{ color:var(--ink); opacity:.85; font-weight:600; padding:.55rem .8rem; border-radius:10px; transition: all 0.3s ease; }
+  nav a:hover{ background:rgba(211,174,98,.2); opacity:1; color: var(--accent); }
 
   /* Hero */
-  .hero{ position:relative; overflow:clip; }
+  .hero{ position:relative; overflow:clip; z-index: 1; }
   .hero .inner{
-    display:grid; grid-template-columns: 1.1fr .9fr; align-items:center;
+    display:grid; grid-template-columns: 1fr; align-items:center;
     min-height:68vh; gap:2rem; padding-block:clamp(2rem, 6vw, 5rem);
   }
 
-  /* Watermark logo behind heading */
   .hero-heading{
     position:relative;
     padding:.5rem 0 0;
@@ -116,49 +199,26 @@
   }
 
   .lead{ color:var(--muted); font-size:1.15rem; max-width:48ch; }
-  .cta-row{ margin-top:1.25rem; display:flex; gap:.8rem; flex-wrap:wrap; }
-
-  .hero-card{
-    background:linear-gradient(180deg, rgba(211,174,98,.10), rgba(26,63,48,.10));
-    border:1px solid var(--line);
-    border-radius:var(--radius); padding:1.1rem; display:grid; gap:.9rem; box-shadow:var(--shadow);
-  }
-  .hero-illus{
-    aspect-ratio: 4/3; border-radius:14px;
-    background:
-      radial-gradient(500px 400px at 80% 10%, rgba(211,174,98,.22), transparent),
-      linear-gradient(135deg, #342f28 0%, #26231e 100%);
-    display:grid; place-items:center; border:1px solid var(--line);
-  }
-  .hero-illus .bars{ width:72%; height:58%; display:flex; align-items:flex-end; gap:6%; }
-  .bar{
-    flex:1; border-radius:10px 10px 4px 4px;
-    background:linear-gradient(180deg, var(--secondary), #0c2a1f);
-    box-shadow: inset 0 -12px 24px rgba(0,0,0,.25);
-    animation:rise 2.4s ease-in-out infinite alternate;
-  }
-  .bar:nth-child(2){ animation-delay:.2s; }
-  .bar:nth-child(3){ animation-delay:.4s; }
-  .bar:nth-child(4){ animation-delay:.6s; }
-  .bar:nth-child(5){ animation-delay:.8s; }
-  @keyframes rise{ from{ height:15%; } to{ height:85%; } }
+  .cta-row{ margin-top:2rem; display:flex; gap:.8rem; flex-wrap:wrap; }
 
   /* Sections */
-  section{ padding-block: clamp(2rem, 6vw, 4rem); }
+  section{ padding-block: clamp(2rem, 6vw, 4rem); position: relative; z-index: 1; }
   .section-head{ display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
   .muted{ color:var(--muted); }
 
   .card-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
   .card{
-    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-    border:1px solid var(--line); border-radius:var(--radius);
-    padding:1.15rem; box-shadow: var(--shadow);
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    border:1px solid rgba(26,63,48,.4);
+    border-radius:var(--radius);
+    padding:1.15rem; 
+    box-shadow: 0 16px 48px rgba(0,0,0,.5);
   }
   .card h3{ font-size:1.15rem; }
 
   .pill{
     display:inline-block; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
-    border:1px solid var(--line); padding:.28rem .6rem; border-radius:999px; background:rgba(26,63,48,.18);
+    border:1px solid rgba(26,63,48,.4); padding:.28rem .6rem; border-radius:999px; background:rgba(26,63,48,.18);
   }
 
   /* About */
@@ -166,17 +226,21 @@
   .about-img{
     aspect-ratio: 3/2; border-radius:var(--radius);
     background:linear-gradient(135deg, #353129, #1f1d19);
-    border:1px solid var(--line);
+    border:1px solid rgba(26,63,48,.4);
   }
 
   /* Resources */
   .resource-list{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.9rem; }
-  .resource{ padding:1rem; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.02); }
+  .resource{ 
+    padding:1rem; border-radius:14px; 
+    border:1px solid rgba(26,63,48,.4); 
+    background:rgba(255,255,255,.02); 
+  }
   .resource a{ color:var(--accent); font-weight:700; }
 
   /* Contact/Footer */
-  .contact{ background:linear-gradient(180deg, rgba(211,174,98,.08), transparent 70%); border-top:1px solid var(--line); }
-  footer{ border-top:1px solid var(--line); margin-top:2rem; padding-block:1.2rem; color:var(--muted); font-size:1rem; }
+  .contact{ background:linear-gradient(180deg, rgba(211,174,98,.08), transparent 70%); border-top:1px solid rgba(26,63,48,.4); }
+  footer{ border-top:1px solid rgba(26,63,48,.4); margin-top:2rem; padding-block:1.2rem; color:var(--muted); font-size:1rem; }
 
   /* Floating Contact Bubble */
   [hidden]{display:none !important;}
@@ -184,7 +248,11 @@
   .bubble-toggle{
     display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1rem; border-radius:999px;
     background:linear-gradient(180deg, var(--accent), #c59d54); color:#2b2925; border:1px solid var(--line);
-    font-weight:700; box-shadow:var(--shadow); cursor:pointer;
+    font-weight:700; box-shadow:var(--shadow); cursor:pointer; transition: all 0.3s ease;
+  }
+  .bubble-toggle:hover {
+    box-shadow: 0 0 20px rgba(211,174,98,0.5), var(--shadow);
+    background: linear-gradient(180deg, #e5c478, var(--accent));
   }
   .bubble-toggle .dot{ width:8px; height:8px; border-radius:999px; background:var(--secondary); box-shadow:0 0 0 4px rgba(26,63,48,.25);}
   .bubble-panel{
@@ -194,7 +262,8 @@
     backdrop-filter: blur(6px);
   }
   .bubble-panel header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.5rem; }
-  .bubble-close{ background:transparent; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:.35rem .55rem; cursor:pointer; }
+  .bubble-close{ background:transparent; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:.35rem .55rem; cursor:pointer; transition: all 0.3s ease; }
+  .bubble-close:hover { background: rgba(211,174,98,.2); border-color: var(--accent); }
   .bubble-panel form{ display:grid; gap:.8rem; grid-template-columns:1fr; }
   .bubble-panel input, .bubble-panel textarea{
     background:#2f2c26; border:1px solid var(--line); color:var(--ink); border-radius:12px; padding:.85rem 1rem;
@@ -202,17 +271,54 @@
   }
   .bubble-panel textarea{ min-height:120px; }
 
+  /* Feature boxes - no gold lines */
+  .feature {
+    display:grid; gap:.4rem; padding:.9rem 1rem;
+    border:1px solid rgba(26,63,48,.4);
+    border-radius:14px;
+    background:rgba(255,255,255,.02);
+    box-shadow: 0 16px 48px rgba(0,0,0,.5);
+  }
+  .feature h3 { margin:0; }
+
   /* Responsive */
   @media (max-width: 960px){
     .hero .inner{ grid-template-columns:1fr; }
     .card-grid, .resource-list{ grid-template-columns:1fr; }
     .two-col{ grid-template-columns:1fr; }
     nav ul{ display:none; }
+    .globe-container { width: 400px; height: 400px; }
+  }
+  @media (max-width: 600px){
+    .globe-container { width: 300px; height: 300px; }
   }
 </style>
 
 </head>
 <body>
+  <!-- Golden Cursor Tracer -->
+  <div class="cursor-tracer" id="cursor-tracer"></div>
+  <div class="cursor-trail" id="cursor-trail-1"></div>
+  <div class="cursor-trail" id="cursor-trail-2"></div>
+  <div class="cursor-trail" id="cursor-trail-3"></div>
+
+  <!-- Rotating Globe Background -->
+  <div class="globe-container">
+    <div class="globe">
+      <div class="globe-line lat1"></div>
+      <div class="globe-line lat2"></div>
+      <div class="globe-line lat3"></div>
+      <div class="globe-line lat4"></div>
+      <div class="globe-line lat5"></div>
+      <div class="globe-line long1"></div>
+      <div class="globe-line long2"></div>
+      <div class="globe-line long3"></div>
+      <div class="globe-line long4"></div>
+      <div class="globe-line long5"></div>
+      <div class="globe-line long6"></div>
+    </div>
+  </div>
+
   <!-- Header -->
   <header>
     <div class="container nav">
@@ -222,7 +328,7 @@
           <li><a href="team.html">Our Team</a></li>
           <li><a href="services.html">Services &amp; Strategies</a></li>
           <li><a href="who-we-serve.html">Who We Serve</a></li>
-          <li><a class="active" href="faq.html">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
         </ul>
       </nav>
       <a class="btn secondary" href="login.html">Client Login</a>
@@ -234,24 +340,12 @@
     <div class="container inner">
       <div>
         <div class="eyebrow">Leges Wealth Management</div>
-        <h1>Confidence Compounds <span style="color:var(--accent);"></span></h1>
+        <h1>Confidence Compounds</h1>
         <p class="lead">A professional, client-first approach to planning, investing, and risk management—delivered with clarity and transparency.</p>
         <div class="cta-row">
-          <a class="btn" href="#why">Learn More</a>
+          <a class="btn" href="services.html">Learn More</a>
           <a class="btn secondary" href="#contact">Start Your Journey</a>
         </div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-illus" role="img" aria-label="Stylized performance bars">
-          <div class="bars" aria-hidden="true">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-          </div>
-        </div>
-        <div class="muted">Actively managed portfolios with a disciplined process and thoughtful attention to risk.</div>
       </div>
     </div>
   </section>
@@ -300,7 +394,6 @@
     </div>
   </section>
 
-  
   <!-- Resources -->
   <section id="resources">
     <div class="container">
@@ -309,8 +402,7 @@
         <p class="muted">Helpful links and educational content.</p>
       </div>
       <div class="resource-list">
-        <div class="resource"><a href="#">Client Login</a><p class="muted">Secure access to your accounts.</p></div>
-   
+        <div class="resource"><a href="login.html">Client Login</a><p class="muted">Secure access to your accounts.</p></div>
       </div>
     </div>
   </section>
@@ -320,18 +412,16 @@
     <div class="container">
       <div class="section-head">
         <h2>Contact Us</h2>
-        <p class="muted">Tip: use the floating bubble in the bottom-right to send a quick message.</p>
+        <p class="muted">Ready to start your journey? Reach out today.</p>
       </div>
 
       <footer class="container">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
           <small>© <span id="year"></span> Leges Wealth Management. All rights reserved.</small>
           <div style="display:flex; gap:.9rem;">
-            <a href="disclosures.html">Disclosures</a>
-
-            <a class="muted" href="#">FAQ</a>
-            <a class="muted" href="#">Privacy Policy</a>
-            <a class="muted" href="#">Disclosures</a>
+            <a class="muted" href="faq.html">FAQ</a>
+            <a class="muted" href="privacy.html">Privacy Policy</a>
+            <a class="muted" href="disclosures.html">Disclosures</a>
           </div>
         </div>
       </footer>
@@ -358,12 +448,10 @@
           <label class="muted" for="bemail">Email</label>
           <input id="bemail" name="email" type="email" placeholder="jane@example.com" required />
         </div>
-
         <div>
           <button class="btn" type="submit">Send Message</button>
         </div>
       </form>
-
     </div>
   </div>
 
@@ -372,6 +460,48 @@
     (function(){
       const yr = document.getElementById('year');
       if (yr) yr.textContent = new Date().getFullYear();
+    })();
+
+    // Golden cursor tracer
+    (function(){
+      const tracer = document.getElementById('cursor-tracer');
+      const trails = [
+        document.getElementById('cursor-trail-1'),
+        document.getElementById('cursor-trail-2'),
+        document.getElementById('cursor-trail-3')
+      ];
+      
+      let mouseX = 0, mouseY = 0;
+      let tracerX = 0, tracerY = 0;
+      let trailPositions = trails.map(() => ({ x: 0, y: 0 }));
+      
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      
+      function animate() {
+        // Main tracer follows mouse with slight delay
+        tracerX += (mouseX - tracerX) * 0.15;
+        tracerY += (mouseY - tracerY) * 0.15;
+        tracer.style.left = tracerX + 'px';
+        tracer.style.top = tracerY + 'px';
+        
+        // Trail elements follow each other
+        let prevX = tracerX, prevY = tracerY;
+        trails.forEach((trail, i) => {
+          trailPositions[i].x += (prevX - trailPositions[i].x) * (0.1 - i * 0.02);
+          trailPositions[i].y += (prevY - trailPositions[i].y) * (0.1 - i * 0.02);
+          trail.style.left = trailPositions[i].x + 'px';
+          trail.style.top = trailPositions[i].y + 'px';
+          trail.style.opacity = 1 - (i * 0.25);
+          prevX = trailPositions[i].x;
+          prevY = trailPositions[i].y;
+        });
+        
+        requestAnimationFrame(animate);
+      }
+      animate();
     })();
 
     // Floating contact bubble behavior
@@ -405,14 +535,12 @@
       });
       close.addEventListener('click', (e)=>{ e.preventDefault(); closePanel(); });
 
-      // Close on Escape
       window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePanel(); });
 
-      // Demo submit handler
       if(form){
         form.addEventListener('submit', function(e){
           e.preventDefault();
-          alert('Thanks! This demo form isn’t wired up yet.');
+          alert('Thanks for reaching out! We will be in touch soon.');
           closePanel();
         });
       }
@@ -420,8 +548,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-

@@ -12,13 +12,13 @@
 
  <style>
   :root{
-    --primary:#2b2925;
+    --primary:#010e07;
     --secondary:#1a3f30;
     --accent:#d3ae62;
     --neutral:#f7f2e9;
     --bg:var(--primary);
     --ink:var(--neutral);
-    --muted:#d9d3c8;
+    --muted:#ebe6dd;
     --line:var(--secondary);
     --radius:18px;
     --shadow:0 14px 40px rgba(0,0,0,.45);
@@ -34,11 +34,11 @@
     font-family:'Cormorant Garamond', serif;
     color:var(--ink);
     background:
-      radial-gradient(900px 420px at 75% -10%, rgba(211,174,98,.12), transparent 60%),
       var(--bg);
     line-height:1.6;
     letter-spacing:.1px;
-    overflow-x: hidden;
+
+    padding-top: 60px;
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -46,35 +46,24 @@
 
   h1,h2,h3,h4,h5,h6{ color:var(--accent); margin:0 0 .5rem; line-height:1.15; }
   h1{ font-size:clamp(2rem, 4vw, 3rem); }
-  .eyebrow{ color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; }
+  .eyebrow{ color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.18em; font-size:.95rem; }
 
   .container{ width: min(100% - 2rem, var(--maxw)); margin-inline:auto; }
   .grid{ display:grid; gap:1.25rem; }
 
-  /* Golden cursor tracer */
-  .cursor-tracer {
+  /* Golden highlighter line trail */
+  #cursor-canvas {
     position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(211,174,98,0.6) 0%, rgba(211,174,98,0) 70%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-  }
-  .cursor-trail {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(211,174,98,0.3) 0%, rgba(211,174,98,0) 70%);
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
   }
 
-  /* Rotating Globe */
+
+  /* Rotating Globe - Sharper and more glowing */
   .globe-container {
     position: fixed;
     top: 50%;
@@ -83,8 +72,8 @@
     width: 600px;
     height: 600px;
     z-index: 0;
-    opacity: 0.12;
     pointer-events: none;
+    filter: blur(0px);
   }
   .globe {
     width: 100%;
@@ -101,8 +90,9 @@
     border-radius: 50%;
     border: 3px solid var(--accent);
     box-shadow: 
-      inset 0 0 60px rgba(211,174,98,0.3),
-      0 0 40px rgba(211,174,98,0.2);
+      inset 0 0 80px rgba(211,174,98,0.5),
+      0 0 60px rgba(211,174,98,0.4),
+      0 0 120px rgba(211,174,98,0.2);
   }
   .globe-line {
     position: absolute;
@@ -112,7 +102,9 @@
     height: 100%;
     border: 2px solid var(--accent);
     border-radius: 50%;
+
     transform-origin: center center;
+    box-shadow: 0 0 15px rgba(211,174,98,0.3);
   }
   .globe-line.lat1 { transform: translate(-50%, -50%) rotateX(0deg) scale(1); }
   .globe-line.lat2 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.866); }
@@ -154,11 +146,11 @@
     box-shadow: 0 0 20px rgba(211,174,98,0.4), 0 18px 36px rgba(0,0,0,.45);
   }
 
-  /* Header */
+  /* Header - Fixed at top */
   header{
-    position:sticky; top:0; backdrop-filter: blur(8px);
-    background: linear-gradient(to bottom, rgba(43,41,37,.92), rgba(43,41,37,.70));
-    border-bottom:1px solid var(--line);
+    position:fixed; top:0; left:0; right:0;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(to bottom, rgba(43,41,37,.95), rgba(43,41,37,.85));
     z-index:50;
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:.8rem 0; }
@@ -172,7 +164,7 @@
   nav a:hover{ background:rgba(211,174,98,.2); opacity:1; color: var(--accent); }
 
   /* Hero */
-  .hero{ position:relative; overflow:clip; z-index: 1; }
+  .hero{ position:relative; z-index: 1; }
   .hero .inner{
     display:grid; grid-template-columns: 1fr; align-items:center;
     min-height:68vh; gap:2rem; padding-block:clamp(2rem, 6vw, 5rem);
@@ -188,8 +180,6 @@
     right:-10px; top:-24px;
     width:160px; height:160px;
     background: var(--hero-logo-url) center/contain no-repeat;
-    opacity:.10;
-    filter: saturate(0) contrast(1.2);
     pointer-events:none;
   }
   @media (max-width: 640px){
@@ -201,16 +191,15 @@
   .lead{ color:var(--muted); font-size:1.15rem; max-width:48ch; }
   .cta-row{ margin-top:2rem; display:flex; gap:.8rem; flex-wrap:wrap; }
 
-  /* Sections */
-  section{ padding-block: clamp(2rem, 6vw, 4rem); position: relative; z-index: 1; }
-  .section-head{ display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
+  /* Sections - reduced padding */
+  section{ padding-block: clamp(1.5rem, 4vw, 2.5rem); position: relative; z-index: 1; }
+  .section-head{ display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
   .muted{ color:var(--muted); }
 
   .card-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
   .card{
     background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-    border:1px solid rgba(26,63,48,.4);
-    border-radius:var(--radius);
+
     padding:1.15rem; 
     box-shadow: 0 16px 48px rgba(0,0,0,.5);
   }
@@ -218,19 +207,19 @@
 
   .pill{
     display:inline-block; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
-    border:1px solid rgba(26,63,48,.4); padding:.28rem .6rem; border-radius:999px; background:rgba(26,63,48,.18);
   }
 
   /* About */
   .two-col{ grid-template-columns: 1.15fr .85fr; align-items:center; }
+
   .about-img{
     aspect-ratio: 3/2; border-radius:var(--radius);
     background:linear-gradient(135deg, #353129, #1f1d19);
     border:1px solid rgba(26,63,48,.4);
   }
 
-  /* Resources */
-  .resource-list{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.9rem; }
+  /* Resources - side by side layout */
+  .resource-list{ display:grid; grid-template-columns: 1fr 1fr; gap:.9rem; }
   .resource{ 
     padding:1rem; border-radius:14px; 
     border:1px solid rgba(26,63,48,.4); 
@@ -238,21 +227,33 @@
   }
   .resource a{ color:var(--accent); font-weight:700; }
 
-  /* Contact/Footer */
-  .contact{ background:linear-gradient(180deg, rgba(211,174,98,.08), transparent 70%); border-top:1px solid rgba(26,63,48,.4); }
-  footer{ border-top:1px solid rgba(26,63,48,.4); margin-top:2rem; padding-block:1.2rem; color:var(--muted); font-size:1rem; }
+  /* Contact/Footer - no border lines */
+  .contact{ background:linear-gradient(180deg, rgba(211,174,98,.08), transparent 70%); }
+  footer{ margin-top:1.5rem; padding-block:1rem; color:var(--muted); font-size:1rem; }
 
-  /* Floating Contact Bubble */
+  /* Floating Contact Bubble with entrance animation and pulse */
   [hidden]{display:none !important;}
   .contact-bubble{ position:fixed; right:1rem; bottom:1rem; z-index:70; display:grid; gap:.6rem; }
   .bubble-toggle{
     display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1rem; border-radius:999px;
     background:linear-gradient(180deg, var(--accent), #c59d54); color:#2b2925; border:1px solid var(--line);
     font-weight:700; box-shadow:var(--shadow); cursor:pointer; transition: all 0.3s ease;
+    animation: bubbleEntrance 0.8s ease-out forwards, goldPulse 2s ease-in-out infinite 0.8s;
+    transform-origin: center center;
+  }
+
+  @keyframes goldPulse {
+    0%, 100% { 
+      box-shadow: 0 0 10px rgba(211,174,98,0.4), 0 0 20px rgba(211,174,98,0.2), var(--shadow);
+    }
+    50% { 
+      box-shadow: 0 0 25px rgba(211,174,98,0.8), 0 0 50px rgba(211,174,98,0.4), 0 0 75px rgba(211,174,98,0.2), var(--shadow);
+    }
   }
   .bubble-toggle:hover {
-    box-shadow: 0 0 20px rgba(211,174,98,0.5), var(--shadow);
+    box-shadow: 0 0 30px rgba(211,174,98,0.6), var(--shadow);
     background: linear-gradient(180deg, #e5c478, var(--accent));
+    animation: goldPulse 2s ease-in-out infinite;
   }
   .bubble-toggle .dot{ width:8px; height:8px; border-radius:999px; background:var(--secondary); box-shadow:0 0 0 4px rgba(26,63,48,.25);}
   .bubble-panel{
@@ -271,7 +272,7 @@
   }
   .bubble-panel textarea{ min-height:120px; }
 
-  /* Feature boxes - no gold lines */
+  /* Feature boxes */
   .feature {
     display:grid; gap:.4rem; padding:.9rem 1rem;
     border:1px solid rgba(26,63,48,.4);
@@ -280,6 +281,14 @@
     box-shadow: 0 16px 48px rgba(0,0,0,.5);
   }
   .feature h3 { margin:0; }
+
+  /* Footer links alignment */
+  .footer-content {
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  }
+  .footer-links {
+    display:flex; gap:.9rem;
+  }
 
   /* Responsive */
   @media (max-width: 960px){
@@ -296,11 +305,9 @@
 
 </head>
 <body>
-  <!-- Golden Cursor Tracer -->
-  <div class="cursor-tracer" id="cursor-tracer"></div>
-  <div class="cursor-trail" id="cursor-trail-1"></div>
-  <div class="cursor-trail" id="cursor-trail-2"></div>
-  <div class="cursor-trail" id="cursor-trail-3"></div>
+  <!-- Golden Line Cursor Trail -->
+  <canvas id="cursor-canvas"></canvas>
+  <div class="cursor-dot" id="cursor-dot"></div>
 
   <!-- Rotating Globe Background -->
   <div class="globe-container">
@@ -355,7 +362,6 @@
     <div class="container">
       <div class="section-head">
         <h2>Why Choose Us</h2>
-        <p class="muted">Personalized planning • Disciplined execution • Transparent fees</p>
       </div>
       <div class="card-grid">
         <article class="card">
@@ -390,7 +396,7 @@
         </ul>
         <div class="cta-row"><a class="btn" href="#contact">Book a Call</a></div>
       </div>
-      <div class="about-img" aria-hidden="true"></div>
+      <div class="logo.png" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -399,9 +405,9 @@
     <div class="container">
       <div class="section-head">
         <h2>Resources</h2>
-        <p class="muted">Helpful links and educational content.</p>
       </div>
       <div class="resource-list">
+        <div class="resource"><a href="faq.html">FAQ</a><p class="muted">Common questions answered.</p></div>
         <div class="resource"><a href="login.html">Client Login</a><p class="muted">Secure access to your accounts.</p></div>
       </div>
     </div>
@@ -416,9 +422,9 @@
       </div>
 
       <footer class="container">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-          <small>© <span id="year"></span> Leges Wealth Management. All rights reserved.</small>
-          <div style="display:flex; gap:.9rem;">
+        <div class="footer-content">
+          <small>© <span id="year"></span> Leges Wealth Management LLC ("Leges") is a Registered Investment Adviser. Advisory services are offered only to clients or prospective clients where Leges Wealth and its representatives are properly licensed or exempt from licensure. Please see our Disclosures page for additional information.</small>
+          <div class="footer-links">
             <a class="muted" href="faq.html">FAQ</a>
             <a class="muted" href="privacy.html">Privacy Policy</a>
             <a class="muted" href="disclosures.html">Disclosures</a>
@@ -462,46 +468,93 @@
       if (yr) yr.textContent = new Date().getFullYear();
     })();
 
-    // Golden cursor tracer
+    // Golden line cursor trail
     (function(){
-      const tracer = document.getElementById('cursor-tracer');
-      const trails = [
-        document.getElementById('cursor-trail-1'),
-        document.getElementById('cursor-trail-2'),
-        document.getElementById('cursor-trail-3')
-      ];
+      const canvas = document.getElementById('cursor-canvas');
+      const ctx = canvas.getContext('2d');
+      const dot = document.getElementById('cursor-dot');
       
+      // Set canvas size
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Store trail points
+      const trail = [];
+      const maxTrailLength = 20;
       let mouseX = 0, mouseY = 0;
-      let tracerX = 0, tracerY = 0;
-      let trailPositions = trails.map(() => ({ x: 0, y: 0 }));
       
       document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        // Add point to trail
+        trail.push({ x: mouseX, y: mouseY, age: 0 });
+        
+        // Limit trail length
+        if (trail.length > maxTrailLength) {
+          trail.shift();
+        }
+        
+        // Update dot position
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
       });
       
-      function animate() {
-        // Main tracer follows mouse with slight delay
-        tracerX += (mouseX - tracerX) * 0.15;
-        tracerY += (mouseY - tracerY) * 0.15;
-        tracer.style.left = tracerX + 'px';
-        tracer.style.top = tracerY + 'px';
+      function draw() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Trail elements follow each other
-        let prevX = tracerX, prevY = tracerY;
-        trails.forEach((trail, i) => {
-          trailPositions[i].x += (prevX - trailPositions[i].x) * (0.1 - i * 0.02);
-          trailPositions[i].y += (prevY - trailPositions[i].y) * (0.1 - i * 0.02);
-          trail.style.left = trailPositions[i].x + 'px';
-          trail.style.top = trailPositions[i].y + 'px';
-          trail.style.opacity = 1 - (i * 0.25);
-          prevX = trailPositions[i].x;
-          prevY = trailPositions[i].y;
-        });
+        if (trail.length < 2) {
+          requestAnimationFrame(draw);
+          return;
+        }
         
-        requestAnimationFrame(animate);
+        // Draw the trail as a smooth line
+        ctx.beginPath();
+        ctx.moveTo(trail[0].x, trail[0].y);
+        
+        for (let i = 1; i < trail.length; i++) {
+          const prev = trail[i - 1];
+          const curr = trail[i];
+          const midX = (prev.x + curr.x) / 2;
+          const midY = (prev.y + curr.y) / 2;
+          ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+        }
+        
+        // Line to current position
+        if (trail.length > 0) {
+          const last = trail[trail.length - 1];
+          ctx.lineTo(last.x, last.y);
+        }
+        
+        // Create gradient along the line
+        const gradient = ctx.createLinearGradient(
+          trail[0].x, trail[0].y,
+          trail[trail.length - 1].x, trail[trail.length - 1].y
+        );
+        gradient.addColorStop(0, 'rgba(211, 174, 98, 0)');
+        gradient.addColorStop(0.5, 'rgba(211, 174, 98, 0.4)');
+        gradient.addColorStop(1, 'rgba(211, 174, 98, 0.8)');
+        
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        
+        // Age out old points when mouse is still
+        trail.forEach(p => p.age++);
+        while (trail.length > 0 && trail[0].age > 8) {
+          trail.shift();
+        }
+        
+        requestAnimationFrame(draw);
       }
-      animate();
+      draw();
     })();
 
     // Floating contact bubble behavior

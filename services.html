@@ -12,80 +12,40 @@
 
   <style>
     :root{
-      --primary:#2b2925; --secondary:#1a3f30; --accent:#d3ae62; --neutral:#f7f2e9;
+      --primary:#010e07; --secondary:#1a3f30; --accent:#d3ae62; --neutral:#f7f2e9;
       --bg:var(--primary); --ink:var(--neutral); --muted:#d9d3c8; --line:var(--secondary);
       --radius:18px; --shadow:0 14px 40px rgba(0,0,0,.45); --maxw:1100px;
       --hero-logo-url:url('logo.png');
     }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;font-family:'Cormorant Garamond',serif;color:var(--ink);
-      background:radial-gradient(900px 420px at 75% -10%, rgba(211,174,98,.12), transparent 60%), var(--bg);
-      line-height:1.6; letter-spacing:.1px; overflow-x: hidden;}
+      background: var(--bg);
+      line-height:1.6; letter-spacing:.1px; overflow-x: hidden; padding-top: 60px;}
     a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
     h1,h2,h3,h4,h5,h6{color:var(--accent);margin:0 0 .5rem;line-height:1.15} h1{font-size:clamp(2rem,4vw,3rem)}
     .eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.78rem}
     .container{width:min(100% - 2rem,var(--maxw));margin-inline:auto} .grid{display:grid;gap:1.25rem}
 
-    /* Golden cursor tracer */
-    .cursor-tracer {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(211,174,98,0.6) 0%, rgba(211,174,98,0) 70%);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
+    #cursor-canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 9999;
     }
-    .cursor-trail {
-      position: fixed;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(211,174,98,0.3) 0%, rgba(211,174,98,0) 70%);
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
+    .cursor-dot {
+      position: fixed; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); pointer-events: none; z-index: 10000;
+      transform: translate(-50%, -50%); box-shadow: 0 0 10px rgba(211,174,98,0.8);
     }
 
-    /* Rotating Globe */
     .globe-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      z-index: 0;
-      opacity: 0.12;
-      pointer-events: none;
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 600px; z-index: 0; pointer-events: none;
     }
-    .globe {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: rotateGlobe 30s linear infinite;
-    }
+    .globe { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: rotateGlobe 30s linear infinite; }
     .globe::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 3px solid var(--accent);
-      box-shadow: inset 0 0 60px rgba(211,174,98,0.3), 0 0 40px rgba(211,174,98,0.2);
+      content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent);
+      box-shadow: inset 0 0 80px rgba(211,174,98,0.5), 0 0 60px rgba(211,174,98,0.4), 0 0 120px rgba(211,174,98,0.2);
     }
-    .globe-line {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      transform-origin: center center;
-    }
+    .globe-line { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border: 2px solid var(--accent); border-radius: 50%; transform-origin: center center; box-shadow: 0 0 15px rgba(211,174,98,0.3); }
     .globe-line.lat1 { transform: translate(-50%, -50%) rotateX(0deg) scale(1); }
     .globe-line.lat2 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.866); }
     .globe-line.lat3 { transform: translate(-50%, -50%) rotateX(0deg) scale(0.707); }
@@ -97,46 +57,46 @@
     .globe-line.long4 { transform: translate(-50%, -50%) rotateY(90deg); }
     .globe-line.long5 { transform: translate(-50%, -50%) rotateY(120deg); }
     .globe-line.long6 { transform: translate(-50%, -50%) rotateY(150deg); }
-    @keyframes rotateGlobe {
-      from { transform: rotateY(0deg) rotateX(-15deg); }
-      to { transform: rotateY(360deg) rotateX(-15deg); }
-    }
+    @keyframes rotateGlobe { from { transform: rotateY(0deg) rotateX(-15deg); } to { transform: rotateY(360deg) rotateX(-15deg); } }
 
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.15rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font-weight:700;box-shadow:var(--shadow);transition:all 0.3s ease}
     .btn.secondary{background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925}
     .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(0,0,0,.45);background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;border-color:var(--accent)}
     .btn.secondary:hover{background:linear-gradient(180deg,#e5c478,var(--accent));box-shadow:0 0 20px rgba(211,174,98,0.4),0 18px 36px rgba(0,0,0,.45)}
 
-    header{position:sticky;top:0;backdrop-filter:blur(8px);background:linear-gradient(to bottom,rgba(43,41,37,.92),rgba(43,41,37,.70));border-bottom:1px solid var(--line);z-index:50}
+    header{position:fixed;top:0;left:0;right:0;backdrop-filter:blur(8px);background:linear-gradient(to bottom,rgba(43,41,37,.95),rgba(43,41,37,.85));z-index:50}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
     .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;letter-spacing:.4px;color:var(--ink)}
     nav ul{display:flex;gap:1.1rem;list-style:none;padding:0;margin:0}
     nav a{color:var(--ink);opacity:.85;font-weight:600;padding:.55rem .8rem;border-radius:10px;transition:all 0.3s ease}
     nav a:hover{background:rgba(211,174,98,.2);opacity:1;color:var(--accent)}
-    nav a.active{background:rgba(26,63,48,.24);opacity:1}
     .hero{position:relative;overflow:clip;z-index:1}
     .hero .inner{display:grid;grid-template-columns:1fr;align-items:center;min-height:40vh;gap:1.25rem;padding-block:clamp(2rem,6vw,4rem)}
     .hero-heading{position:relative;padding:.5rem 0 0;isolation:isolate}
     .hero-heading>*{position:relative;z-index:1}
-    .hero-heading::before{content:"";position:absolute;right:-10px;top:-24px;width:180px;height:180px;background:var(--hero-logo-url) center/contain no-repeat;opacity:.18;filter:saturate(0) contrast(1.1);pointer-events:none;z-index:0}
+    .hero-heading::before{content:"";position:absolute;right:-10px;top:-24px;width:180px;height:180px;background:var(--hero-logo-url) center/contain no-repeat;pointer-events:none;z-index:0}
     @media (max-width:640px){.hero-heading::before{width:130px;height:130px;right:-6px;top:-16px}}
     .lead{color:var(--muted);font-size:1.15rem;max-width:70ch}
-    .cta-row{margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap}
-    section{padding-block:clamp(2rem,6vw,4rem);position:relative;z-index:1} .section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+    .cta-row{margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap}
+    section{padding-block:clamp(1.5rem,4vw,2.5rem);position:relative;z-index:1} 
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1rem}
     .muted{color:var(--muted)}
     .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(26,63,48,.4);border-radius:var(--radius);padding:1.15rem;box-shadow:0 16px 48px rgba(0,0,0,.5)}
     .card h3{font-size:1.15rem}
-    .pill{display:inline-block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1px solid rgba(26,63,48,.4);padding:.28rem .6rem;border-radius:999px;background:rgba(26,63,48,.18)}
+    .pill{display:inline-block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);}
     .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
     .plan{border:1px solid rgba(26,63,48,.4);border-radius:var(--radius);padding:1.15rem;background:rgba(255,255,255,.02);display:grid;gap:.6rem;box-shadow:0 16px 48px rgba(0,0,0,.5)}
     .plan .meta{color:var(--muted);font-size:.98rem} .plan ul{margin:.25rem 0 0;padding-left:1.1rem;color:var(--muted)}
-    .contact{background:linear-gradient(180deg,rgba(211,174,98,.08),transparent 70%);border-top:1px solid rgba(26,63,48,.4)}
-    footer{border-top:1px solid rgba(26,63,48,.4);margin-top:2rem;padding-block:1.2rem;color:var(--muted);font-size:1rem}
+    .contact{background:linear-gradient(180deg,rgba(211,174,98,.08),transparent 70%)}
+    footer{margin-top:1.5rem;padding-block:1rem;color:var(--muted);font-size:1rem}
+    .footer-content{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .footer-links{display:flex;gap:.9rem}
     [hidden]{display:none!important}
     .contact-bubble{position:fixed;right:1rem;bottom:1rem;z-index:70;display:grid;gap:.6rem}
-    .bubble-toggle{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-radius:999px;background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;border:1px solid var(--line);font-weight:700;box-shadow:var(--shadow);cursor:pointer;transition:all 0.3s ease}
-    .bubble-toggle:hover{box-shadow:0 0 20px rgba(211,174,98,0.5),var(--shadow);background:linear-gradient(180deg,#e5c478,var(--accent))}
+    .bubble-toggle{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-radius:999px;background:linear-gradient(180deg,var(--accent),#c59d54);color:#2b2925;border:1px solid var(--line);font-weight:700;box-shadow:var(--shadow);cursor:pointer;transition:all 0.3s ease;animation: bubbleEntrance 0.8s ease-out forwards, goldPulse 2s ease-in-out infinite 0.8s;transform-origin: center center;}
+    @keyframes goldPulse { 0%, 100% { box-shadow: 0 0 10px rgba(211,174,98,0.4), 0 0 20px rgba(211,174,98,0.2), var(--shadow); } 50% { box-shadow: 0 0 25px rgba(211,174,98,0.8), 0 0 50px rgba(211,174,98,0.4), 0 0 75px rgba(211,174,98,0.2), var(--shadow); } }
+    .bubble-toggle:hover{box-shadow:0 0 30px rgba(211,174,98,0.6),var(--shadow);background:linear-gradient(180deg,#e5c478,var(--accent));animation:goldPulse 2s ease-in-out infinite}
     .bubble-toggle .dot{width:8px;height:8px;border-radius:999px;background:var(--secondary);box-shadow:0 0 0 4px rgba(26,63,48,.25)}
     .bubble-panel{width:min(92vw,420px);max-height:min(70vh,640px);overflow:auto;padding:1rem;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
     .bubble-panel header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
@@ -150,13 +110,8 @@
   </style>
 </head>
 <body>
-  <!-- Golden Cursor Tracer -->
-  <div class="cursor-tracer" id="cursor-tracer"></div>
-  <div class="cursor-trail" id="cursor-trail-1"></div>
-  <div class="cursor-trail" id="cursor-trail-2"></div>
-  <div class="cursor-trail" id="cursor-trail-3"></div>
+  <canvas id="cursor-canvas"></canvas>
 
-  <!-- Rotating Globe Background -->
   <div class="globe-container">
     <div class="globe">
       <div class="globe-line lat1"></div>
@@ -179,7 +134,7 @@
       <nav aria-label="Primary">
         <ul>
           <li><a href="team.html">Our Team</a></li>
-          <li><a class="active" href="services.html">Services &amp; Strategies</a></li>
+          <li><a href="services.html">Services &amp; Strategies</a></li>
           <li><a href="who-we-serve.html">Who We Serve</a></li>
           <li><a href="faq.html">FAQ</a></li>
         </ul>
@@ -194,39 +149,42 @@
         <div class="eyebrow">What We Do</div>
         <h1>Services &amp; <span style="color:var(--accent);">Strategies</span></h1>
       </div>
-      <p class="lead">From comprehensive planning to disciplined portfolio construction, we align every recommendation with your goals, time horizon, and tolerance for risk.</p>
-      <div class="cta-row">
-        <a class="btn" href="#services">Explore Services</a>
-        <a class="btn secondary" href="#strategies">See Our Approach</a>
-      </div>
+      <p class="lead">Comprehensive planning and investment management designed to help you make confident, informed decisions—today and for the long term.</p>
     </div>
   </section>
 
-  <section id="services">
+  <section>
     <div class="container">
       <div class="section-head">
-        <h2>Core Services</h2>
-        <p class="muted">Personalized planning • Transparent process • Ongoing guidance</p>
+        <h2>Financial Planning</h2>
+        <p class="muted">A structured process that turns complexity into clarity.</p>
       </div>
-
       <div class="card-grid">
-        <article class="card"><span class="pill">Planning</span><h3>Comprehensive Financial Planning</h3><p class="muted">Cash flow, retirement readiness, tax coordination, and estate considerations—assembled into a cohesive, living plan.</p></article>
-        <article class="card"><span class="pill">Advisory</span><h3>Portfolio Management</h3><p class="muted">Institutional discipline with ongoing monitoring, rebalancing, and risk controls tailored to your objectives.</p></article>
-        <article class="card"><span class="pill">Insight</span><h3>Tax-Aware Solutions</h3><p class="muted">Asset location, tax-loss harvesting, and coordination with your tax professional to enhance after-tax outcomes.</p></article>
-        <article class="card"><span class="pill">Protection</span><h3>Risk Management</h3><p class="muted">Identify and mitigate exposures across insurance, liquidity, concentration, and longevity risks.</p></article>
-        <article class="card"><span class="pill">Transitions</span><h3>Retirement Income Design</h3><p class="muted">Sustainable withdrawal strategies, Social Security timing, and distribution sequencing for durability.</p></article>
-        <article class="card"><span class="pill">Legacy</span><h3>Estate &amp; Gifting Coordination</h3><p class="muted">Align beneficiaries, titling, and charitable intent with a plan that reflects your values.</p></article>
+        <article class="card">
+          <span class="pill">Core</span>
+          <h3>Retirement Planning</h3>
+          <p class="muted">Cash-flow modeling, Social Security optimization, and withdrawal strategies that balance taxes and longevity.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Tax</span>
+          <h3>Tax-Aware Strategies</h3>
+          <p class="muted">Roth conversions, asset location, loss harvesting, and coordination with your CPA.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Legacy</span>
+          <h3>Estate &amp; Legacy</h3>
+          <p class="muted">Beneficiary reviews, trust coordination, and gifting strategies aligned with your values.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="strategies">
+  <section>
     <div class="container">
       <div class="section-head">
         <h2>Investment Strategies</h2>
         <p class="muted">Disciplined, risk-managed allocations built for your objectives.</p>
       </div>
-
       <div class="three-col">
         <div class="plan">
           <h3>Conservative</h3>
@@ -238,7 +196,6 @@
           </ul>
           <div class="cta-row"><a class="btn secondary" href="contact.html">Discuss Fit</a></div>
         </div>
-
         <div class="plan">
           <h3>Balanced</h3>
           <div class="meta">Growth with risk control</div>
@@ -249,7 +206,6 @@
           </ul>
           <div class="cta-row"><a class="btn secondary" href="contact.html">Discuss Fit</a></div>
         </div>
-
         <div class="plan">
           <h3>Growth</h3>
           <div class="meta">Long-term appreciation</div>
@@ -270,16 +226,14 @@
         <h2>Next Step</h2>
         <p class="muted">Ready to explore a plan tailored to you?</p>
       </div>
-
       <div class="cta-row">
-        <a class="btn" href="contact.html">Schedule an Intro Call</a>
+        <a class="btn" href="contact.html">Schedule a Strategy Call</a>
         <a class="btn secondary" href="team.html">Learn More About Us</a>
       </div>
-
       <footer class="container">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-          <small>© <span id="year"></span> Leges Wealth Management. All rights reserved.</small>
-          <div style="display:flex;gap:.9rem;">
+        <div class="footer-content">
+          <small>© <span id="year"></span> Leges Wealth Management LLC ("Leges") is a Registered Investment Adviser. Advisory services are offered only to clients or prospective clients where Leges Wealth and its representatives are properly licensed or exempt from licensure. Please see our Disclosures page for additional information.</small>
+          <div class="footer-links">
             <a class="muted" href="faq.html">FAQ</a>
             <a class="muted" href="privacy.html">Privacy Policy</a>
             <a class="muted" href="disclosures.html">Disclosures</a>
@@ -296,13 +250,12 @@
     </button>
     <div class="bubble-panel" id="contact-panel" hidden>
       <header>
-        <strong>Send a message</strong>
+        <strong>Schedule a Strategy Call</strong>
         <button class="bubble-close" id="bubble-close" aria-label="Close contact form">×</button>
       </header>
       <form id="bubble-form" action="#" method="post">
         <div><label class="muted" for="bname">Name</label><input id="bname" name="name" placeholder="Jane Doe" required /></div>
         <div><label class="muted" for="bemail">Email</label><input id="bemail" name="email" type="email" placeholder="jane@example.com" required /></div>
-        <div><label class="muted" for="bmsg">Message</label><textarea id="bmsg" name="message" placeholder="Tell us how we can help"></textarea></div>
         <div><button class="btn" type="submit">Send Message</button></div>
       </form>
     </div>
@@ -311,39 +264,42 @@
   <script>
     (function(){ const yr=document.getElementById('year'); if(yr) yr.textContent=new Date().getFullYear(); })();
 
-    // Golden cursor tracer
     (function(){
-      const tracer = document.getElementById('cursor-tracer');
-      const trails = [
-        document.getElementById('cursor-trail-1'),
-        document.getElementById('cursor-trail-2'),
-        document.getElementById('cursor-trail-3')
-      ];
+      const canvas = document.getElementById('cursor-canvas');
+      const ctx = canvas.getContext('2d');
+      const dot = document.getElementById('cursor-dot');
+      function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      const trail = [];
+      const maxTrailLength = 20;
       let mouseX = 0, mouseY = 0;
-      let tracerX = 0, tracerY = 0;
-      let trailPositions = trails.map(() => ({ x: 0, y: 0 }));
       document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        mouseX = e.clientX; mouseY = e.clientY;
+        trail.push({ x: mouseX, y: mouseY, age: 0 });
+        if (trail.length > maxTrailLength) trail.shift();
+        dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
       });
-      function animate() {
-        tracerX += (mouseX - tracerX) * 0.15;
-        tracerY += (mouseY - tracerY) * 0.15;
-        tracer.style.left = tracerX + 'px';
-        tracer.style.top = tracerY + 'px';
-        let prevX = tracerX, prevY = tracerY;
-        trails.forEach((trail, i) => {
-          trailPositions[i].x += (prevX - trailPositions[i].x) * (0.1 - i * 0.02);
-          trailPositions[i].y += (prevY - trailPositions[i].y) * (0.1 - i * 0.02);
-          trail.style.left = trailPositions[i].x + 'px';
-          trail.style.top = trailPositions[i].y + 'px';
-          trail.style.opacity = 1 - (i * 0.25);
-          prevX = trailPositions[i].x;
-          prevY = trailPositions[i].y;
-        });
-        requestAnimationFrame(animate);
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (trail.length < 2) { requestAnimationFrame(draw); return; }
+        ctx.beginPath();
+        ctx.moveTo(trail[0].x, trail[0].y);
+        for (let i = 1; i < trail.length; i++) {
+          const prev = trail[i - 1], curr = trail[i];
+          ctx.quadraticCurveTo(prev.x, prev.y, (prev.x + curr.x) / 2, (prev.y + curr.y) / 2);
+        }
+        if (trail.length > 0) ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y);
+        const gradient = ctx.createLinearGradient(trail[0].x, trail[0].y, trail[trail.length - 1].x, trail[trail.length - 1].y);
+        gradient.addColorStop(0, 'rgba(211, 174, 98, 0)');
+        gradient.addColorStop(0.5, 'rgba(211, 174, 98, 0.4)');
+        gradient.addColorStop(1, 'rgba(211, 174, 98, 0.8)');
+        ctx.strokeStyle = gradient; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
+        trail.forEach(p => p.age++);
+        while (trail.length > 0 && trail[0].age > 8) trail.shift();
+        requestAnimationFrame(draw);
       }
-      animate();
+      draw();
     })();
 
     (function(){

@@ -11,20 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
  <style>
-  :root{
-    --primary:#010e07;
-    --secondary:#1a3f30;
-    --accent:#d3ae62;
-    --neutral:#f7f2e9;
-    --bg:var(--primary);
-    --ink:var(--neutral);
-    --muted:#ebe6dd;
-    --line:var(--secondary);
-    --radius:18px;
-    --shadow:0 14px 40px rgba(0,0,0,.45);
-    --maxw:1100px;
-    --hero-logo-url: url('logo.png');
-  }
+    :root{
+      --primary:#010e07; --secondary:#1a3f30; --accent:#d3ae62; --neutral:#f7f2e9;
+      --bg:var(--primary); --ink:var(--neutral); --muted:#d9d3c8; --line:var(--secondary);
+      --radius:18px; --shadow:0 14px 40px rgba(0,0,0,.45); --maxw:1100px;
+      --hero-logo-url:url('logo.png');
+    }
 
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -150,7 +142,8 @@
   header{
     position:fixed; top:0; left:0; right:0;
     backdrop-filter: blur(8px);
-    background: linear-gradient(to bottom, rgba(43,41,37,.95), rgba(43,41,37,.85));
+    background: var(--secondary);
+      font-size: 1.1rem;
     z-index:50;
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:.8rem 0; }
@@ -345,7 +338,7 @@
   <!-- Hero -->
   <section class="hero" id="top">
     <div class="container inner">
-      <div>
+    <div class="hero-heading">
         <div class="eyebrow">Leges Wealth Management</div>
         <h1>Confidence Compounds</h1>
         <p class="lead">A professional, client-first approach to planning, investing, and risk management—delivered with clarity and transparency.</p>
@@ -353,7 +346,11 @@
           <a class="btn" href="services.html">Learn More</a>
           <a class="btn secondary" href="#contact">Start Your Journey</a>
         </div>
-        <p>In greek, LEGES means “law”. For us, it represents the laws of wealth creation - principles that guide how we invest, plan, and advise. Markets change, economies evolve, but the core formula of creating and compounding wealth never do. LEGES Wealth Management was created to help clients align their financial lives with these fundamental laws.</p>
+<p style="font-style: italic; font-size: 1.2rem;">
+  In greek, LEGES means “law”. For us, it represents the laws of wealth creation - principles that guide how we invest, 
+  plan, and advise. Markets change, economies evolve, but the core formula of creating and compounding wealth never do.
+  LEGES Wealth Management was created to help clients align their financial lives with these fundamental laws.
+</p>
       </div>
     </div>
   </section>
@@ -365,17 +362,12 @@
         <h2>Why Choose Us</h2>
       </div>
       <div class="card-grid">
-        <article class="card">
-          <span class="pill">Strategy</span>
-          <h3>Customized Financial Plans</h3>
-          <p class="muted">Tailored roadmaps that align with your goals across retirement, tax, and estate considerations.</p>
-        </article>
-        <article class="card">
+        <article class="resource">
           <span class="pill">Expertise</span>
           <h3>Experienced Investment Approach</h3>
           <p class="muted">A thoughtful investment process grounded in research, clarity, and long-term discipline.</p>
         </article>
-        <article class="card">
+        <article class="resource">
           <span class="pill">Alignment</span>
           <h3>Actively Managed Portfolios</h3>
           <p class="muted">We operate as fiduciaries, aligning our advice with your best interests.</p>
@@ -389,7 +381,7 @@
     <div class="container grid two-col">
       <div>
         <h2>About Leges Wealth Management</h2>
-        <p class="muted">We help clients move from financial uncertainty to confident decision-making. Our comprehensive process combines financial planning, portfolio management, and clear communication.</p>
+        <p class="muted">We help clients move from financial uncertainty to confident decision-making. Our comprehensive process combines portfolio management and clear communication.</p>
         <ul class="muted" style="margin-top:.6rem; line-height:1.9;">
           <li>Fiduciary standard and client-first advice</li>
           <li>Tax-aware, risk-managed portfolios</li>
@@ -397,7 +389,7 @@
         </ul>
         <div class="cta-row"><a class="btn" href="#contact">Book a Call</a></div>
       </div>
-      <div class="logo.png" aria-hidden="true"></div>
+      <div class="logo.png"></div>
     </div>
   </section>
 

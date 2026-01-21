@@ -71,6 +71,16 @@
       font-size: 1.1rem;
     z-index:50;
   }    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+  .brand{ display:flex; align-items:center; gap:.75rem; font-weight:700; letter-spacing:.4px; color:var(--ink); }
+
+.brand img{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  object-fit:cover;
+}
+
     .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;letter-spacing:.4px;color:var(--ink)}
     nav ul{display:flex;gap:1.1rem;list-style:none;padding:0;margin:0}
     nav a{color:var(--ink);opacity:.85;font-weight:600;padding:.55rem .8rem;border-radius:10px;transition:all 0.3s ease}
@@ -135,7 +145,10 @@
 
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Home"><span>Leges Wealth Management</span></a>
+<a class="brand" href="index.html" aria-label="Home">
+  <img src="logo2.png" alt="Leges Wealth Management logo" class="nav-logo">
+  <span>Leges Wealth Management</span>
+</a>
       <nav aria-label="Primary">
         <ul>
           <li><a href="team.html">Our Team</a></li>
@@ -221,7 +234,7 @@
           <small>© <span id="year"></span> Leges Wealth Management LLC ("Leges") is a Registered Investment Adviser. Advisory services are offered only to clients or prospective clients where Leges Wealth and its representatives are properly licensed or exempt from licensure. Please see our Disclosures page for additional information.</small>
           <div class="footer-links">
             <a class="muted" href="faq.html">FAQ</a>
-            <a class="muted" href="privacy.html">Privacy Policy</a>
+            <a class="muted" href="PrivacyPolicy.html">Privacy Policy</a>
             <a class="muted" href="disclosures.html">Disclosures</a>
           </div>
         </div>
